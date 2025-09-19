@@ -1,29 +1,50 @@
 import { useState } from "react";
-import "./App.css";
-import Button from "@mui/material/Button";
 import { Link, Outlet } from "react-router-dom";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  Button,
+  Container,
+} from "@mui/material";
 
-function App() {
+export default function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <div className="card">
-        <Button
-          variant="contained"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          count is {count}
-        </Button>
-      </div>
-      <nav>
-        <Link to="/">Home</Link> | <Link to="/about">About</Link> |{" "}
-        <Link to="/contact">Contact</Link>
-      </nav>
-      <hr />
-      <Outlet />
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+            My App
+          </Typography>
+
+          {/* React Router Link */}
+          <Box sx={{ display: "flex", gap: 4 }}>
+            <Button color="inherit" component={Link} to="/">
+              Home
+            </Button>
+            <Button color="inherit" component={Link} to="/about">
+              About
+            </Button>
+            <Button color="inherit" component={Link} to="/contact">
+              Contact
+            </Button>
+          </Box>
+        </Toolbar>
+      </AppBar>
+
+      <Container sx={{ py: 5 }}>
+        <Box sx={{ maxWidth: 1500, mx: "auto", mt: 1 }}>
+          <Outlet />
+          <Box sx={{ mt: 3 }}>
+            <Button variant="contained" onClick={() => setCount((c) => c + 1)}>
+              count is {count}
+            </Button>
+          </Box>
+        </Box>
+      </Container>
     </>
   );
 }
-
-export default App;

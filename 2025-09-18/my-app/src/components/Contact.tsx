@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 
 export default function Contact() {
   return (
-    <Box sx={{ p: 4, maxWidth: 2000, mx: "auto" }}>
+    <Box>
       <Typography variant="h4" gutterBottom>
         Lorem Ipsum
       </Typography>
