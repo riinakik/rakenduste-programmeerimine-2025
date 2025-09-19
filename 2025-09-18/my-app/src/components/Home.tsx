@@ -1,6 +1,9 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
+import { useState } from "react";
 
 export default function Home() {
+  const [count, setCount] = useState(0);
+
   return (
     <Box>
       <Typography variant="h4" gutterBottom>
@@ -54,6 +57,11 @@ export default function Home() {
         Sed dolor quam, pretium tristique ante vel, faucibus sagittis lorem.
         Proin vitae molestie dolor. Morbi eget urna consectetur.
       </Typography>
+      <Box sx={{ mt: 3 }}>
+        <Button variant="contained" onClick={() => setCount((c) => c + 1)}>
+          count is {count}
+        </Button>
+      </Box>
     </Box>
   );
 }

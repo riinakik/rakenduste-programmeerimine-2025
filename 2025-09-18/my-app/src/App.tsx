@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import {
   AppBar,
@@ -10,8 +9,6 @@ import {
 } from "@mui/material";
 
 export default function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <AppBar position="static">
@@ -38,11 +35,6 @@ export default function App() {
       <Container sx={{ py: 5 }}>
         <Box sx={{ maxWidth: 1500, mx: "auto", mt: 1 }}>
           <Outlet />
-          <Box sx={{ mt: 3 }}>
-            <Button variant="contained" onClick={() => setCount((c) => c + 1)}>
-              count is {count}
-            </Button>
-          </Box>
         </Box>
       </Container>
     </>
