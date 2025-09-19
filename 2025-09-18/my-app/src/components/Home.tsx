@@ -10,7 +10,7 @@ export default function Home() {
         Lorem Ipsum
       </Typography>
 
-      <Typography paragraph>
+      <Typography paragraph sx={{ mb: 4 }}>
         "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
         consectetur, adipisci velit..."
       </Typography>
@@ -57,7 +57,7 @@ export default function Home() {
         Sed dolor quam, pretium tristique ante vel, faucibus sagittis lorem.
         Proin vitae molestie dolor. Morbi eget urna consectetur.
       </Typography>
-      <Box sx={{ mt: 3 }}>
+      <Box sx={{ mt: 4 }}>
         <Button variant="contained" onClick={() => setCount((c) => c + 1)}>
           count is {count}
         </Button>

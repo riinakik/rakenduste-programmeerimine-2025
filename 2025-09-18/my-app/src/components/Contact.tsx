@@ -1,59 +1,60 @@
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Stack,
+  TextField,
+  Button,
+  List,
+  ListItem,
+} from "@mui/material";
 
 export default function Contact() {
   return (
-    <Box>
-      <Typography variant="h4" gutterBottom>
-        Lorem Ipsum
-      </Typography>
+    <Box
+      sx={{
+        minHeight: "60vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Box sx={{ width: "100%", maxWidth: 480, mx: "auto" }}>
+        <Typography variant="h4" gutterBottom>
+          Riina Kikkas
+        </Typography>
 
-      <Typography paragraph>
-        "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
-        consectetur, adipisci velit..."
-      </Typography>
+        <Typography variant="h6" sx={{ mt: 4 }} gutterBottom>
+          My Hobbies
+        </Typography>
 
-      <Typography paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-        sed erat eu nisl finibus feugiat. Nam in pretium purus. Etiam quis
-        dapibus ipsum. Quisque feugiat blandit semper. Orci varius natoque
-        penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-        Phasellus id rutrum nisl, ut consectetur dolor. Pellentesque porta odio
-        id odio gravida mattis.
-      </Typography>
+        <List
+          disablePadding
+          sx={{
+            listStyleType: "disc",
+            listStylePosition: "inside",
+            m: 0,
+            p: 0,
+            "& .MuiListItem-root": { display: "list-item", py: 0.5 },
+          }}
+        >
+          <ListItem>Gardening</ListItem>
+          <ListItem>Architecture and history</ListItem>
+          <ListItem>Playing the flute and the recorder</ListItem>
+          <ListItem>Walking</ListItem>
+        </List>
 
-      <Typography paragraph>
-        Aenean facilisis dapibus tortor, ac luctus erat. Donec facilisis
-        porttitor euismod. Etiam dolor libero, consequat nec eros a, tincidunt
-        posuere dolor. Sed vestibulum ultricies massa, a congue leo. Fusce ac
-        urna vel felis placerat porttitor. Morbi magna tellus, semper nec
-        gravida quis, commodo non leo. In semper in urna et condimentum.
-        Vestibulum suscipit finibus dolor, at euismod diam sagittis nec.
-        Phasellus rutrum purus id odio accumsan, nec tincidunt erat dignissim.
-        Morbi vel euismod tellus, at tristique lacus. Cras nunc sapien, faucibus
-        a sem at, auctor tristique magna. Mauris sodales velit sed accumsan
-        efficitur. Suspendisse ac congue tellus. Suspendisse potenti.
-      </Typography>
+        <Typography variant="h6" sx={{ mt: 3 }} gutterBottom>
+          Contact me
+        </Typography>
 
-      <Typography paragraph>
-        Vivamus sagittis volutpat ante. Sed id finibus nisl. Etiam nec ultricies
-        odio. Sed dapibus tempor mauris sit amet cursus. Suspendisse eleifend
-        dui lorem, a fringilla mi viverra luctus. Praesent id auctor diam. Etiam
-        a dui facilisis, luctus turpis id, aliquet enim. Integer commodo ipsum
-        sit amet nibh hendrerit, sed suscipit tortor cursus. Integer gravida
-        neque ac est venenatis laoreet. Donec malesuada lectus in nunc iaculis
-        semper. Morbi tempus, arcu vel iaculis laoreet, ex enim vulputate mi, a
-        tincidunt orci massa in lacus. Phasellus ut nunc non neque facilisis
-        gravida vel et nunc. Nulla facilisi. Aliquam congue justo nec luctus
-        vestibulum.
-      </Typography>
-
-      <Typography paragraph>
-        Quisque diam ex, faucibus quis scelerisque sed, feugiat a lectus.
-        Pellentesque massa felis, pharetra sed rutrum eget, tincidunt vitae sem.
-        Curabitur augue sem, venenatis ac ullamcorper eu, tempus eget mauris.
-        Sed dolor quam, pretium tristique ante vel, faucibus sagittis lorem.
-        Proin vitae molestie dolor. Morbi eget urna consectetur.
-      </Typography>
+        <Stack spacing={2}>
+          <TextField label="E-mail" type="email" required fullWidth />
+          <TextField label="Message" multiline minRows={4} required fullWidth />
+          <Button type="submit" variant="contained" fullWidth>
+            SEND
+          </Button>
+        </Stack>
+      </Box>
     </Box>
   );
 }

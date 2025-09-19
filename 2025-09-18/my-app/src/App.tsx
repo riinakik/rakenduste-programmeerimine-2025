@@ -17,7 +17,6 @@ export default function App() {
             My App
           </Typography>
 
-          {/* React Router Link */}
           <Box sx={{ display: "flex", gap: 4 }}>
             <Button color="inherit" component={Link} to="/">
               Home
