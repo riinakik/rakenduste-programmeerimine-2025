@@ -6,20 +6,14 @@ import {
   List,
   ListItem,
   Paper,
+  Grid,
 } from "@mui/material";
 
 export default function Contact() {
   return (
-    <Box
-      sx={{
-        minHeight: "60vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Box sx={{ width: "100%", maxWidth: 600, mx: "auto" }}>
-        <Paper sx={{ p: 5, borderRadius: 1 }} elevation={4}>
+    <Grid container spacing={4}>
+      <Grid size={{ xs: 12, md: 4 }}>
+        <Paper sx={{ p: 4, height: "100%" }} elevation={4}>
           <Typography variant="h4" gutterBottom>
             Riina Kikkas
           </Typography>
@@ -33,9 +27,7 @@ export default function Contact() {
             sx={{
               typography: "body2",
               listStyleType: "disc",
-              listStylePosition: "inside",
-              m: 0,
-              p: 0,
+              pl: 2,
               "& .MuiListItem-root": { display: "list-item", py: 0.5 },
             }}
           >
@@ -44,38 +36,36 @@ export default function Contact() {
             <ListItem>Playing the flute and the recorder</ListItem>
             <ListItem>Walking</ListItem>
           </List>
+        </Paper>
+      </Grid>
 
-          <Typography variant="subtitle1" sx={{ mt: 4 }} gutterBottom>
+      <Grid size={{ xs: 12, md: 8 }}>
+        <Paper sx={{ p: 4, height: "100%" }} elevation={4}>
+          <Typography variant="h5" sx={{ mb: 2 }}>
             Contact me
           </Typography>
-
-          <TextField
-            label="E-mail"
-            type="email"
-            required
-            fullWidth
-            sx={{ mt: 1 }}
-          />
-          <TextField
-            label="Message"
-            multiline
-            minRows={4}
-            required
-            fullWidth
-            margin="normal"
-          />
-
-          <Button
-            sx={{ mt: 4 }}
-            type="submit"
-            variant="contained"
-            color="secondary"
-            fullWidth
-          >
-            SEND
-          </Button>
+          <Box component="form">
+            <TextField label="E-mail" type="email" required fullWidth />
+            <TextField
+              label="Message"
+              multiline
+              minRows={5}
+              fullWidth
+              margin="normal"
+            />
+            <Button
+              sx={{ mt: 2 }}
+              type="submit"
+              variant="contained"
+              fullWidth
+              size="large"
+              color="secondary"
+            >
+              SEND
+            </Button>
+          </Box>
         </Paper>
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 }
