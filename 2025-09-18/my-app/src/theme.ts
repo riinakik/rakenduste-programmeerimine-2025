@@ -16,7 +16,6 @@ const theme = createTheme({
      typography: {
     fontFamily: 'Roboto, sans-serif',
 
-    // Pealkirjade jaoks kasutame Raleway'd
     h1: { fontFamily: 'Raleway, sans-serif', fontWeight: 700 },
     h2: { fontFamily: 'Raleway, sans-serif', fontWeight: 700 },
     h3: { fontFamily: 'Raleway, sans-serif', fontWeight: 700 },

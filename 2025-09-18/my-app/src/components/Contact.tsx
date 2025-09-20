@@ -14,7 +14,7 @@ export default function Contact() {
     <Grid container spacing={4}>
       <Grid size={{ xs: 12, md: 4 }}>
         <Paper sx={{ p: 4, height: "100%" }} elevation={4}>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" color="#E69500" gutterBottom>
             Riina Kikkas
           </Typography>
 
@@ -28,7 +28,13 @@ export default function Contact() {
               typography: "body2",
               listStyleType: "disc",
               pl: 2,
-              "& .MuiListItem-root": { display: "list-item", py: 0.5 },
+              "& .MuiListItem-root": {
+                display: "list-item",
+                py: 0.5,
+                "&::marker": {
+                  color: "#E69500", // Kuldne oranž
+                },
+              },
             }}
           >
             <ListItem>Gardening</ListItem>

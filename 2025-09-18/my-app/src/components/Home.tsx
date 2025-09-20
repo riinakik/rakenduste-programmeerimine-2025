@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <Box>
       <Paper sx={{ p: 5, borderRadius: 1 }} elevation={4}>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" color="#E69500" gutterBottom>
           Lorem Ipsum
         </Typography>
 
