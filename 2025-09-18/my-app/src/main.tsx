@@ -8,6 +8,10 @@ import Home from "./components/Home";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import theme from "./theme";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/700.css";
+import "@fontsource/raleway/400.css";
+import "@fontsource/raleway/700.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <StyledEngineProvider injectFirst>
