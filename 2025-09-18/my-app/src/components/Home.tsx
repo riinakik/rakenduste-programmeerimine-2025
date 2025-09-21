@@ -1,8 +1,8 @@
 import { Box, Typography, Button, Paper } from "@mui/material";
-import { useState } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export default function Home() {
-  const [count, setCount] = useState(0);
+  const [count, setCount, clearCount] = useLocalStorage<number>("counter", 0);
 
   return (
     <Box>
@@ -58,14 +58,26 @@ export default function Home() {
           mauris. Sed dolor quam, pretium tristique ante vel, faucibus sagittis
           lorem. Proin vitae molestie dolor. Morbi eget urna consectetur.
         </Typography>
-        <Box sx={{ mt: 4 }}>
+        <Box sx={{ mt: 6, display: "flex", alignItems: "center", gap: 2 }}>
+          Try counting!
           <Button
             variant="contained"
             color="secondary"
-            onClick={() => setCount((c) => c + 1)}
+            onClick={() => setCount((prev) => prev + 1)}
           >
-            count is {count}
+            +1
           </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => setCount((prev) => prev - 1)}
+          >
+            -1
+          </Button>
+          <Button variant="contained" color="secondary" onClick={clearCount}>
+            Reset
+          </Button>
+          Count is: {count}
         </Box>
       </Paper>
     </Box>
