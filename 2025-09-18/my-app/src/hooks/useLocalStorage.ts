@@ -22,10 +22,10 @@ export default function useLocalStorage<T>(key: string, initialValue: T) {
     }
   }
 
-  function clearState() {
-    setValue(undefined as T);
-    removeItem(key);
-  }
+ function clearState() {
+  setValue(initialValue);  
+  removeItem(key);         
+}
 
   return [value, handleDispatch, clearState] as const;
 }

@@ -70,7 +70,12 @@ export default function Home() {
           <Button
             variant="contained"
             color="secondary"
-            onClick={() => setCount((prev) => prev - 1)}
+            disabled={typeof count === "number" ? count <= 0 : true}
+            onClick={() =>
+              setCount((prev) =>
+                Math.max((typeof prev === "number" ? prev : 0) - 1, 0)
+              )
+            }
           >
             -1
           </Button>
