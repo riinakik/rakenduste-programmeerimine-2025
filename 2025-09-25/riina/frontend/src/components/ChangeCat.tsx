@@ -14,15 +14,33 @@ const ChangeCat: React.FC<ChangeCatsProps> = ({
 }) => {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(currentName);
+  const [error, setError] = useState("");
 
   const handleSave = async () => {
-    await fetch("http://localhost:3000/cats", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, name }),
-    });
-    setEditing(false);
-    fetchCats();
+    try {
+      const response = await fetch("http://localhost:3000/cats", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, name }),
+      });
+
+      if (response.ok) {
+        console.log("Cat updated");
+        setError("");
+        setEditing(false);
+        fetchCats();
+      } else {
+        const data = await response.json();
+        if (data.errors && data.errors.length > 0) {
+          setError(data.errors[0].msg);
+        } else {
+          setError("Something went wrong");
+        }
+      }
+    } catch (err) {
+      console.warn(err);
+      setError("Network error");
+    }
   };
 
   if (!editing) {
@@ -44,6 +62,8 @@ const ChangeCat: React.FC<ChangeCatsProps> = ({
         size="small"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        error={!!error}
+        helperText={error}
       />
       <Button
         variant="contained"
@@ -60,6 +80,7 @@ const ChangeCat: React.FC<ChangeCatsProps> = ({
         onClick={() => {
           setEditing(false);
           setName(currentName);
+          setError("");
         }}
       >
         Cancel

@@ -7,6 +7,7 @@ type SubmitCatProps = {
 
 const SubmitCat = ({ fetchCats }: SubmitCatProps) => {
   const [name, setName] = useState("");
+  const [error, setError] = useState("");
 
   const submitCat = async () => {
     try {
@@ -16,26 +17,31 @@ const SubmitCat = ({ fetchCats }: SubmitCatProps) => {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name: name }),
+        body: JSON.stringify({ name }),
       });
 
       if (response.ok) {
-        console.log("Success", response);
-        // Snackbar success
+        console.log("Success");
+        setName("");
+        setError("");
+        setTimeout(fetchCats, 100);
       } else {
-        console.warn("No success");
-        // Snackbar
+        const data = await response.json();
+        if (data.errors && data.errors.length > 0) {
+          setError(data.errors[0].msg);
+        } else {
+          setError("Something went wrong");
+        }
       }
     } catch (error) {
       console.warn(error);
+      setError("Network error");
     }
   };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-
     submitCat();
-    setTimeout(fetchCats, 100);
   };
 
   return (
@@ -43,10 +49,13 @@ const SubmitCat = ({ fetchCats }: SubmitCatProps) => {
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
       <form onSubmit={handleSubmit}>
-        <Stack>
+        <Stack spacing={1}>
           <TextField
             label="Cat name"
+            value={name}
             onChange={(event) => setName(event.target.value)}
+            error={!!error}
+            helperText={error}
           />
           <Button variant="contained" color="success" type="submit">
             Add

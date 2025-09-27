@@ -4,14 +4,16 @@ const catsController = require("../controllers/cats.controller");
 const {
   catsRouteMiddleware,
   catsGetRouteMiddleware,
+  validateCatCreate,
+  validateCatUpdate,
+  validateCatDelete,
 } = require("../middlewares/cats.middlewares");
 
 router.use(catsRouteMiddleware);
 
-// /cats/ Get endpoint level middleware
 router.get("/", catsGetRouteMiddleware, catsController.read);
-router.post("/", catsController.create);
-router.put("/", catsController.update);
-router.delete("/", catsController.delete);
+router.post("/", validateCatCreate, catsController.create);
+router.put("/", validateCatUpdate, catsController.update);
+router.delete("/", validateCatDelete, catsController.delete);
 
 module.exports = router;
