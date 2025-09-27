@@ -2,6 +2,7 @@ import { Box, List, ListItem, Typography, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SubmitCat from "./SubmitCat.tsx";
 import DeleteCat from "./DeleteCat.tsx";
+import ChangeCat from "./ChangeCat.tsx";
 
 type Cat = {
   id: string;
@@ -56,6 +57,11 @@ const CatsList: React.FC<CatsListProps> = ({ cats, fetchCats }) => {
 
           <Stack direction="row" spacing={1}>
             <DeleteCat id={cat.id} fetchCats={fetchCats} />
+            <ChangeCat
+              id={cat.id}
+              currentName={cat.name}
+              fetchCats={fetchCats}
+            />
           </Stack>
         </ListItem>
       ))}

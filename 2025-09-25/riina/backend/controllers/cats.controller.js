@@ -39,7 +39,16 @@ exports.read = (req, res) => {
   res.json(activeCats);
 };
 
-exports.update = (req, res) => {};
+exports.update = (req, res) => {
+  const { id, name } = req.body;
+
+  const cat = cats.find((c) => c.id === id);
+  cat.name = name;
+  cat.updatedAt = Date.now();
+
+  console.log("Updated:", cat);
+  res.json(cat);
+};
 
 exports.delete = (req, res) => {
   const id = req.query.id;
