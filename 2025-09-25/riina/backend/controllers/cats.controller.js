@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require("uuid");
+
 const cats = [
   {
     id: "7d613b93-fa3e-4ef3-a9d2-e09e5ca6e4e6",
@@ -18,14 +20,35 @@ const cats = [
 exports.create = (req, res) => {
   const { name } = req.body;
 
-  console.log(name);
-  res.sendStatus(200);
+  const newCat = {
+    id: uuidv4(),
+    name,
+    createdAt: Date.now(),
+    updatedAt: null,
+    deleted: false,
+  };
+
+  cats.push(newCat);
+
+  console.log("Added new cat:", newCat);
+  res.status(201).json(newCat);
 };
 
 exports.read = (req, res) => {
-  res.send(cats);
+  const activeCats = cats.filter((cat) => !cat.deleted);
+  res.json(activeCats);
 };
 
 exports.update = (req, res) => {};
 
-exports.delete = (req, res) => {};
+exports.delete = (req, res) => {
+  const id = req.query.id;
+
+  const cat = cats.find((c) => c.id === id);
+
+  cat.deleted = true;
+  cat.updatedAt = Date.now();
+
+  console.log("Soft deleted:", id);
+  res.json({ message: "Cat soft deleted", id });
+};
