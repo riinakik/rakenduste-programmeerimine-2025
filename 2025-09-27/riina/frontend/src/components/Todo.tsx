@@ -1,6 +1,7 @@
 import { Box, List, ListItem, Typography, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SubmitTodo from "./SubmitTodo.tsx";
+import DeleteTodo from "./DeleteTodo.tsx";
 
 type Todo = {
   id: string;
@@ -27,16 +28,17 @@ const Todos = () => {
     <Box>
       <Typography variant="h1">My tasks</Typography>
       <SubmitTodo fetchTodos={fetchTodos} />
-      <TodosList todos={todos} />
+      <TodosList todos={todos} fetchTodos={fetchTodos} />
     </Box>
   );
 };
 
 type TodosListProps = {
   todos: Todo[];
+  fetchTodos: () => void;
 };
 
-const TodosList: React.FC<TodosListProps> = ({ todos }) => {
+const TodosList: React.FC<TodosListProps> = ({ todos, fetchTodos }) => {
   return (
     <List>
       {todos.map((todo) => (
@@ -54,6 +56,10 @@ const TodosList: React.FC<TodosListProps> = ({ todos }) => {
             <Typography variant="caption" color="text.secondary">
               Created: {new Date(todo.createdAt).toLocaleString()}
             </Typography>
+          </Stack>
+
+          <Stack direction="row" spacing={1}>
+            <DeleteTodo id={todo.id} fetchTodos={fetchTodos} />
           </Stack>
         </ListItem>
       ))}
