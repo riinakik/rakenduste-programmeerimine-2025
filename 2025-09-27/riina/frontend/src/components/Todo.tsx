@@ -2,6 +2,7 @@ import { Box, List, ListItem, Typography, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SubmitTodo from "./SubmitTodo.tsx";
 import DeleteTodo from "./DeleteTodo.tsx";
+import ChangeTodo from "./ChangeTodo.tsx";
 
 type Todo = {
   id: string;
@@ -60,6 +61,11 @@ const TodosList: React.FC<TodosListProps> = ({ todos, fetchTodos }) => {
 
           <Stack direction="row" spacing={1}>
             <DeleteTodo id={todo.id} fetchTodos={fetchTodos} />
+            <ChangeTodo
+              id={todo.id}
+              currentTask={todo.task}
+              fetchTodos={fetchTodos}
+            />
           </Stack>
         </ListItem>
       ))}
