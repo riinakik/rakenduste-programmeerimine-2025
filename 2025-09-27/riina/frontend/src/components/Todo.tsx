@@ -27,7 +27,7 @@ const Todos = () => {
 
   return (
     <Box>
-      <Typography variant="h1">My tasks</Typography>
+      <Typography variant="h3">My tasks</Typography>
       <SubmitTodo fetchTodos={fetchTodos} />
       <TodosList todos={todos} fetchTodos={fetchTodos} />
     </Box>
