@@ -1,4 +1,4 @@
-import { Box, List, ListItem, Typography, Stack, Button } from "@mui/material";
+import { Box, List, ListItem, Typography, Stack, Switch } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 type Todo = {
@@ -9,25 +9,25 @@ type Todo = {
   deleted: boolean;
 };
 
-const AdminTodo = () => {
+const API_BASE = "http://localhost:3000/todo";
+
+const AdminTodo: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const fetchTodos = async () => {
-    const response = await fetch("http://localhost:3000/admin/todo");
+    const response = await fetch(`${API_BASE}/admin/todo`);
     const data = await response.json();
     setTodos(data);
   };
 
   const toggleDeleted = async (id: string) => {
     const response = await fetch(
-      `http://localhost:3000/admin/todo/${id}/toggle-deleted`,
+      `${API_BASE}/admin/todo/${id}/toggle-deleted`,
       {
         method: "PATCH",
       }
     );
-
     if (response.ok) {
-      console.log("Toggled deleted:", id);
       fetchTodos();
     } else {
       console.warn("Failed to toggle");
@@ -40,51 +40,38 @@ const AdminTodo = () => {
 
   return (
     <Box>
-      <Typography variant="h3">Admin panel</Typography>
-      <TodosList todos={todos} toggleDeleted={toggleDeleted} />
+      <Typography variant="h3" sx={{ mb: 2 }}>
+        Admin panel
+      </Typography>
+      <List>
+        {todos.map((todo) => (
+          <ListItem
+            key={todo.id}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 2,
+            }}
+          >
+            <Stack>
+              <Typography variant="body1">{todo.task}</Typography>
+              <Typography variant="caption" color="text.secondary">
+                Status: {todo.deleted ? "Deleted" : "Active"} • Created:{" "}
+                {new Date(todo.createdAt).toLocaleString()}
+              </Typography>
+            </Stack>
+
+            <Switch
+              checked={!todo.deleted}
+              onChange={() => toggleDeleted(todo.id)}
+              color="success"
+              inputProps={{ "aria-label": "Toggle active/deleted" }}
+            />
+          </ListItem>
+        ))}
+      </List>
     </Box>
-  );
-};
-
-type TodosListProps = {
-  todos: Todo[];
-  toggleDeleted: (id: string) => void;
-};
-
-const TodosList: React.FC<TodosListProps> = ({ todos, toggleDeleted }) => {
-  return (
-    <List>
-      {todos.map((todo) => (
-        <ListItem
-          key={todo.id}
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            gap: 2,
-          }}
-        >
-          <Stack>
-            <Typography variant="body1">{todo.task}</Typography>
-            <Typography variant="caption" color="text.secondary">
-              Status: {todo.deleted ? "Deleted" : "Active"} • Created:{" "}
-              {new Date(todo.createdAt).toLocaleString()}
-            </Typography>
-          </Stack>
-
-          <Stack direction="row" spacing={1}>
-            <Button
-              variant={todo.deleted ? "contained" : "outlined"}
-              color={todo.deleted ? "success" : "warning"}
-              size="small"
-              onClick={() => toggleDeleted(todo.id)}
-            >
-              {todo.deleted ? "Restore" : "Soft-delete"}
-            </Button>
-          </Stack>
-        </ListItem>
-      ))}
-    </List>
   );
 };
 
