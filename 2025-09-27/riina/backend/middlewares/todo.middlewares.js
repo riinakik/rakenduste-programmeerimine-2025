@@ -55,10 +55,26 @@ const validateTodoDelete = [
   },
 ];
 
+const { __todos } = require("../controllers/todo.controllers");
+
+// --- ADMIN: leia todo ID järgi ja lisa req.todo ---
+const findTodoById = (req, res, next) => {
+  const { id } = req.params;
+  const todo = __todos.find((t) => t.id === id);
+
+  if (!todo) {
+    return res.status(404).json({ error: "Todo not found" });
+  }
+
+  req.todo = todo;
+  next();
+};
+
 module.exports = {
   todoRouteMiddleware,
   todoGetRouteMiddleware,
   validateTodoCreate,
   validateTodoUpdate,
   validateTodoDelete,
+  findTodoById,
 };

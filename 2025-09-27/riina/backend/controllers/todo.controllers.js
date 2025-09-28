@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 const todos = [
   {
     id: "7d613b93-fa3e-4ef3-a9d2-e09e5ca6e4e6",
-    task: "Learn Node.js",
+    task: "Learn",
     createdAt: 1727098800585,
     updatedAt: null,
     deleted: false,
@@ -16,6 +16,8 @@ const todos = [
     deleted: false,
   },
 ];
+
+exports.__todos = todos;
 
 exports.create = (req, res) => {
   const { task } = req.body;
@@ -60,4 +62,21 @@ exports.delete = (req, res) => {
 
   console.log("Soft deleted:", id);
   res.json({ message: "Todo soft deleted", id });
+};
+
+// --- ADMIN: tagasta KÕIK todo'd (ka deleted) ---
+exports.adminList = (req, res) => {
+  res.json(todos);
+};
+
+// --- ADMIN: toggelda deleted lippu (true <-> false) ---
+exports.adminToggleDeleted = (req, res) => {
+  const { id } = req.params;
+  const todo = todos.find((t) => t.id === id);
+
+  todo.deleted = !todo.deleted;
+  todo.updatedAt = Date.now();
+
+  console.log("Admin toggled deleted:", { id: todo.id, deleted: todo.deleted });
+  res.json(todo);
 };
