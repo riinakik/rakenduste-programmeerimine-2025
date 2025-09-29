@@ -21,6 +21,13 @@ export default function App() {
 
             {/* Parem pool – lingid */}
             <Box sx={{ display: "flex", gap: 4 }}>
+              <Button color="inherit" component={Link} to="/context">
+                Context
+              </Button>
+              <Button color="inherit" component={Link} to="/prop">
+                Prop
+              </Button>
+
               <Button color="inherit" component={Link} to="/">
                 My Tasks
               </Button>

@@ -7,6 +7,8 @@ import App from "./App";
 // sinu kaks lehte
 import Todos from "./components/Todo";
 import AdminTodo from "./components/AdminTodo";
+import ContextDemo from "./components/Context";
+import PropDrilling from "./components/PropDrilling";
 
 import theme from "./theme";
 
@@ -22,6 +24,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
             {/* Admin */}
             <Route path="admin" element={<AdminTodo />} />
+            <Route path="context" element={<ContextDemo />} />
+            <Route path="prop" element={<PropDrilling />} />
           </Route>
         </Routes>
       </HashRouter>
