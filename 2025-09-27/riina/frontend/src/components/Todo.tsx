@@ -1,4 +1,12 @@
-import { Box, List, ListItem, Typography, Stack } from "@mui/material";
+import {
+  Box,
+  List,
+  ListItem,
+  Typography,
+  Stack,
+  Card,
+  CardContent,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SubmitTodo from "./SubmitTodo.tsx";
 import DeleteTodo from "./DeleteTodo.tsx";
@@ -27,8 +35,14 @@ const Todos = () => {
 
   return (
     <Box>
-      <Typography variant="h3">My tasks</Typography>
-      <SubmitTodo fetchTodos={fetchTodos} />
+      <Typography variant="h3" sx={{ mb: 4 }}>
+        My tasks
+      </Typography>
+
+      <Box sx={{ mb: 6 }}>
+        <SubmitTodo fetchTodos={fetchTodos} />
+      </Box>
+
       <TodosList todos={todos} fetchTodos={fetchTodos} />
     </Box>
   );
@@ -41,32 +55,47 @@ type TodosListProps = {
 
 const TodosList: React.FC<TodosListProps> = ({ todos, fetchTodos }) => {
   return (
-    <List>
+    <List sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       {todos.map((todo) => (
-        <ListItem
-          key={todo.id}
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            gap: 2,
-          }}
-        >
-          <Stack>
-            <Typography variant="body1">{todo.task}</Typography>
-            <Typography variant="caption" color="text.secondary">
-              Created: {new Date(todo.createdAt).toLocaleString()}
-            </Typography>
-          </Stack>
+        <ListItem key={todo.id} disableGutters>
+          <Card
+            sx={{
+              width: "100%",
+              borderRadius: 2,
+              px: 2,
+              py: 1.5,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            {/* Vasak pool – tekst */}
+            <CardContent
+              sx={{
+                p: 0,
+                flex: 1,
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Typography variant="body1" fontWeight={600}>
+                {todo.task}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                Created: {new Date(todo.createdAt).toLocaleString()}
+              </Typography>
+            </CardContent>
 
-          <Stack direction="row" spacing={1}>
-            <DeleteTodo id={todo.id} fetchTodos={fetchTodos} />
-            <ChangeTodo
-              id={todo.id}
-              currentTask={todo.task}
-              fetchTodos={fetchTodos}
-            />
-          </Stack>
+            {/* Parem pool – nupud */}
+            <Stack direction="row" spacing={2}>
+              <DeleteTodo id={todo.id} fetchTodos={fetchTodos} />
+              <ChangeTodo
+                id={todo.id}
+                currentTask={todo.task}
+                fetchTodos={fetchTodos}
+              />
+            </Stack>
+          </Card>
         </ListItem>
       ))}
     </List>

@@ -1,66 +1,57 @@
-import { Box, Button, Stack, TextField } from "@mui/material";
+import { Box, TextField, Button, Stack } from "@mui/material";
 import React, { useState } from "react";
 
 type SubmitTodoProps = {
   fetchTodos: () => void;
 };
 
-const SubmitTodo = ({ fetchTodos }: SubmitTodoProps) => {
+const SubmitTodo: React.FC<SubmitTodoProps> = ({ fetchTodos }) => {
   const [task, setTask] = useState("");
-  const [error, setError] = useState("");
 
-  const submitTodo = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/todo", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ task }),
-      });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!task.trim()) return;
 
-      if (response.ok) {
-        setTask("");
-        setError("");
-        setTimeout(fetchTodos, 100);
-      } else {
-        const data = await response.json();
-        if (data.errors && data.errors.length > 0) {
-          setError(data.errors[0].msg);
-        } else {
-          setError("Something went wrong");
-        }
-      }
-    } catch (error) {
-      console.warn(error);
-      setError("Network error");
-    }
-  };
+    await fetch("http://localhost:3000/todo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ task }),
+    });
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    submitTodo();
+    setTask("");
+    fetchTodos();
   };
 
   return (
-    <Box
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-    >
-      <form onSubmit={handleSubmit}>
-        <Stack spacing={1}>
-          <TextField
-            label="Task description"
-            value={task}
-            onChange={(event) => setTask(event.target.value)}
-            error={!!error}
-            helperText={error}
-          />
-          <Button variant="contained" color="success" type="submit">
-            Add
-          </Button>
-        </Stack>
-      </form>
+    <Box component="form" onSubmit={handleSubmit}>
+      <Stack spacing={2} alignItems="center">
+        <TextField
+          label="Task description"
+          variant="outlined"
+          fullWidth
+          value={task}
+          onChange={(e) => setTask(e.target.value)}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              backgroundColor: "background.default",
+            },
+          }}
+        />
+
+        <Button
+          type="submit"
+          variant="contained"
+          color="secondary"
+          size="large"
+          sx={{
+            width: "100%",
+            py: 1.2,
+            fontWeight: "bold",
+          }}
+        >
+          ADD
+        </Button>
+      </Stack>
     </Box>
   );
 };

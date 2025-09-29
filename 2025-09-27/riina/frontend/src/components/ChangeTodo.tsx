@@ -47,7 +47,7 @@ const ChangeTodo: React.FC<ChangeTodoProps> = ({
     return (
       <Button
         variant="contained"
-        color="primary"
+        color="secondary"
         size="small"
         onClick={() => setEditing(true)}
       >

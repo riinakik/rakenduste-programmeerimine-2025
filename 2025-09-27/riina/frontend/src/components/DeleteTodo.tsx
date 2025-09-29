@@ -20,7 +20,12 @@ const DeleteTodo = ({ id, fetchTodos }: DeleteTodoProps) => {
   };
 
   return (
-    <Button variant="contained" color="error" onClick={handleDelete}>
+    <Button
+      variant="contained"
+      color="error"
+      size="small"
+      onClick={handleDelete}
+    >
       Delete
     </Button>
   );

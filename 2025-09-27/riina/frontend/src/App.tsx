@@ -36,8 +36,8 @@ export default function App() {
       <Toolbar />
 
       {/* Sisuala */}
-      <Box sx={{ bgcolor: "background.default", minHeight: "100vh", py: 4 }}>
-        <Container maxWidth="lg">
+      <Box sx={{ bgcolor: "background.default", minHeight: "100vh", py: 6 }}>
+        <Container maxWidth="sm">
           <Outlet />
         </Container>
       </Box>
