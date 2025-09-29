@@ -1,35 +1,33 @@
 const jwt = require("jsonwebtoken");
 
-const SECRET_KEY = "mysecretkey"; // Soovitavalt hiljem .env failist
+// üks ja sama secret signimiseks ja verifitseerimiseks
+const SECRET = process.env.JWT_SECRET || "mysecretkey";
 
+// POST /auth/login  → BODY: { username, password } → tagasi JWT
 exports.login = (req, res) => {
-  const { username, password } = req.body;
+  const { username, password } = req.body || {};
 
-  // Lihtne kontroll (reaalses elus tuleks võtta DB-st)
-  if (username === "admin" && password === "1234") {
-    const user = { username, role: "admin" };
-
-    // Loo JWT
-    const token = jwt.sign(user, SECRET_KEY, { expiresIn: "1h" });
-
-    return res.json({ token });
+  // lihtne demo-kontroll
+  if (username !== "admin" || password !== "1234") {
+    return res.status(401).json({ error: "Invalid credentials" });
   }
 
-  res.status(401).json({ error: "Invalid credentials" });
+  // README stiilis sign
+  const token = jwt.sign({ username, role: "admin" }, SECRET, {
+    expiresIn: "1h",
+  });
+  res.json({ token });
 };
 
+// GET /auth/ping  → Authorization: Bearer <token>
 exports.ping = (req, res) => {
-  const authHeader = req.headers["authorization"];
-  if (!authHeader) return res.status(401).json({ error: "Missing token" });
+  const authHeader = req.headers.authorization || "";
+  const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : null;
+  if (!token) return res.status(401).json({ error: "Missing token" });
 
-  const token = authHeader.split(" ")[1]; // Bearer <token>
-
-  jwt.verify(token, SECRET_KEY, (err, decoded) => {
-    if (err) {
-      return res.status(403).json({ error: "Invalid token" });
-    }
-
-    //Tagasta info
+  // README stiilis verify (callback)
+  jwt.verify(token, SECRET, (err, decoded) => {
+    if (err) return res.status(403).json({ error: "Invalid token" });
     res.json({ message: "Token valid", user: decoded });
   });
 };
